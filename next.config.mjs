@@ -29,6 +29,8 @@ function mergeConfig(nextConfig, userConfig) {
   if (!userConfig) {
     return
   }
+    output: 'server',
+    unstable_excludeFiles: ['**/profile/**'],
 
   for (const key in userConfig) {
     if (
@@ -44,5 +46,5 @@ function mergeConfig(nextConfig, userConfig) {
     }
   }
 }
-
+mergeConfig(nextConfig, userConfig)
 export default nextConfig
