@@ -1,0 +1,83 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                String    @id @default(auto()) @map("_id") @db.ObjectId
+  name              String?
+  email             String    @unique
+  emailVerified     DateTime?
+  image             String?
+  password          String
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  familyId          String?   @db.ObjectId
+  family            Family?   @relation(fields: [familyId], references: [id])
+  tasks             Task[]    @relation("AssignedTasks")
+  meals             Meal[]
+  familyPreferences FamilyPreferences?
+}
+
+model Family {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  members   User[]
+}
+
+model FamilyPreferences {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId       String   @unique @db.ObjectId
+  user         User     @relation(fields: [userId], references: [id])
+  preferences  String[]
+  restrictions String[]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Task {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  description String?
+  completed   Boolean   @default(false)
+  priority    String?   @default("中") // 高, 中, 低
+  dueDate     DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  assigneeId  String?   @db.ObjectId
+  assignee    User?     @relation("AssignedTasks", fields: [assigneeId], references: [id])
+}
+
+model Meal {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String   @db.ObjectId
+  user        User     @relation(fields: [userId], references: [id])
+  date        DateTime
+  mainDish    String
+  sideDish    String?
+  soup        String?
+  ingredients String[]
+  status      String   @default("買い物必要") // 材料あり, 買い物必要
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model ShoppingItem {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  quantity  String?
+  category  String?
+  purchased Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
