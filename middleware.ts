@@ -30,11 +30,6 @@ export async function middleware(request: NextRequest) {
 // ミドルウェアを適用するパス
 export const config = {
   matcher: [
-    /*
-     * 以下のパスにミドルウェアを適用:
-     * - /dashboard, /tasks, /meals, /laundry, /shopping, /settings (認証が必要)
-     * - /login, /register, /forgot-password (認証不要)
-     */
     "/dashboard/:path*",
     "/tasks/:path*",
     "/meals/:path*",
