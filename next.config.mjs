@@ -11,12 +11,10 @@ const nextConfig = {
   },
   experimental: {
     webpackBuildWorker: true,
-    parallelServerBuildTraces: true,
-    parallelServerCompiles: true,
-  },
-  // 静的エクスポート設定
-  output: "export",
-  distDir: "out",
+    // 以下の2行を削除
+    // parallelServerBuildTraces: true,
+    // parallelServerCompiles: true,
+  }
 }
 
 export default nextConfig
