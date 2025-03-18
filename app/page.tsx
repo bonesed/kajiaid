@@ -1,7 +1,8 @@
-import { redirect } from "next/navigation"
-
 export default function Home() {
-  console.log("Redirecting to /dashboard..."); // 変更を検出させる
-  redirect("/dashboard")
+  return (
+    <div className="p-8">
+      <h1 className="text-3xl font-bold mb-4">メンテナンス中</h1>
+      <p>現在サイトはメンテナンス中です。ご不便をおかけして申し訳ありません。</p>
+    </div>
+  )
 }
-

@@ -10,13 +10,8 @@ const nextConfig = {
     unoptimized: true,
   },
   experimental: {
-    webpackBuildWorker: true,
-    parallelServerBuildTraces: true,
-    parallelServerCompiles: true,
-  },
-  // 静的エクスポート設定
-  output: "export",
-  distDir: "out",
+    webpackBuildWorker: true
+  }
 }
 
 export default nextConfig
